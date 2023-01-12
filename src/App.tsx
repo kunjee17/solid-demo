@@ -1,14 +1,13 @@
 import { Routes } from "@solidjs/router";
-import { Component, createResource, createSignal, For, Show } from "solid-js";
-
-type User = {
-  id?: number;
-  name: string;
-};
-
-const url = `http://localhost:5000/users`;
-
-const fetchUsers = async () => (await fetch(url)).json();
+import {
+  Component,
+  createEffect,
+  createResource,
+  createSignal,
+  For,
+  Show,
+} from "solid-js";
+import { url, User, useUser } from "./Context";
 
 const addUser = async (item: User) => {
   const res = await fetch(url, {
@@ -24,25 +23,33 @@ const addUser = async (item: User) => {
   return res.json();
 };
 
-const List: Component<{ users: User[] }> = ({ users }) => {
+const List: Component = () => {
+  const [users] = useUser();
+  console.log("users", users);
   return (
-    <ul>
-      <For each={users}>
-        {(user, i) => (
-          <li>
-            {i} - {user.name}
-          </li>
-        )}
-      </For>
-    </ul>
+    <div>
+      <ul>
+        <For each={users}>
+          {(user, i) => (
+            <li>
+              {i} - {user.name}
+            </li>
+          )}
+        </For>
+      </ul>
+    </div>
   );
 };
 
 const App: Component = () => {
-  const [users, { refetch, mutate }] = createResource<User[]>(fetchUsers);
+  const [users, loading, { get, setUsers }] = useUser();
   const [name, setName] = createSignal<string>("");
+  createEffect(async () => {
+    await get();
+  });
   return (
     <div>
+      <p>loading - {loading.toString()}</p>
       <input
         type="text"
         placeholder="Type here"
@@ -51,25 +58,18 @@ const App: Component = () => {
         value={name()}
       />
       <button
+        class="btn btn-primary"
         onclick={async () => {
           const res = await addUser({
             name: name(),
           });
-          mutate([
-            ...(users() || []),
-            {
-              name: name(),
-            },
-          ]);
+          setUsers([...users, { name: name() }]);
           setName("");
         }}
       >
         Submit
       </button>
-      <span>{users.loading && "Loading..."}</span>
-      <Show when={users.latest}>
-        <List users={users() || []} />
-      </Show>
+      <List />
     </div>
   );
 };
