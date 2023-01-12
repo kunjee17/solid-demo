@@ -1,24 +1,8 @@
 {
   "users": [
     {
-      "name": "aa",
+      "name": "Oliver",
       "id": 1
-    },
-    {
-      "name": "boom",
-      "id": 2
-    },
-    {
-      "name": "aaa",
-      "id": 3
-    },
-    {
-      "name": "bb",
-      "id": 4
-    },
-    {
-      "name": "boom",
-      "id": 5
     }
   ]
 }

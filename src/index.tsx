@@ -2,9 +2,8 @@
 import { render } from "solid-js/web";
 
 import "./index.css";
-import App from "./App";
+import App, { UserProvider } from "./App";
 import { Router } from "@solidjs/router";
-import { UserProvider } from "./Context";
 
 render(
   () => (
