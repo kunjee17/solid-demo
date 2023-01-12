@@ -33,6 +33,7 @@ Your app is ready to be deployed!
 
 You can deploy the `dist` folder to any static host provider (netlify, surge, now, etc.)
 
-## Running server 
+## Running server
+
 install jsonserver `npm install -g json-server`
 run json server on port 5000 `json-server --watch db.json --port 5000`
