@@ -25,11 +25,11 @@ const addUser = async (item: User) => {
 
 const List: Component = () => {
   const [users] = useUser();
-  console.log("users", users);
+  console.log("users", users.latest);
   return (
     <div>
       <ul>
-        <For each={users}>
+        <For each={users.latest}>
           {(user, i) => (
             <li>
               {i} - {user.name}
@@ -42,14 +42,11 @@ const List: Component = () => {
 };
 
 const App: Component = () => {
-  const [users, loading, { get, setUsers }] = useUser();
+  const [users, { setUsers }] = useUser();
   const [name, setName] = createSignal<string>("");
-  createEffect(async () => {
-    await get();
-  });
+  createEffect(async () => {});
   return (
     <div>
-      <p>loading - {loading.toString()}</p>
       <input
         type="text"
         placeholder="Type here"
@@ -63,13 +60,15 @@ const App: Component = () => {
           const res = await addUser({
             name: name(),
           });
-          setUsers([...users, { name: name() }]);
+          setUsers([...users.latest, { name: name() }]);
           setName("");
         }}
       >
         Submit
       </button>
-      <List />
+      <Show when={users.latest}>
+        <List />
+      </Show>
     </div>
   );
 };
