@@ -88,6 +88,27 @@ const UserDetail: Component<{ fullName: () => string }> = ({ fullName }) => {
   );
 };
 
+const UserDetailButton : Component<{ id: number, mutate : Setter<User | undefined>, name : Accessor<string>, setName : Setter<string>}> = ({id , mutate, name, setName}) => {
+
+  return (
+<button
+        class="btn btn-primary"
+        onclick={async () => {
+          const res = await updateUser({
+            name: name(),
+          });
+          mutate({
+            id,
+            name: name(),
+          });
+          setName("");
+        }}
+      >
+        Submit
+      </button>
+  )
+}
+
 const App: Component = () => {
   const [id, _] = createSignal(1);
   const [user, { mutate }] = createResource(id, getUser);
@@ -104,26 +125,13 @@ const App: Component = () => {
         oninput={(x) => setName(x.target.value)}
         value={name()}
       />
-      <button
-        class="btn btn-primary"
-        onclick={async () => {
-          const res = await updateUser({
-            name: name(),
-          });
-          mutate({
-            id: user.latest!.id,
-            name: name(),
-          });
-          setName("");
-        }}
-      >
-        Submit
-      </button>
+      
       {/* <Show when={users.latest}>
         <List />
       </Show> */}
       <Show when={user.loading}>Loading...</Show>
       <Show when={user.latest}>
+      <UserDetailButton id={user.latest!.id || 0} name={name} setName={setName} mutate={mutate} />
         <p>
           {user.latest?.id} - {user.latest?.name}
         </p>
