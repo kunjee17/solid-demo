@@ -3,6 +3,7 @@ import {
   Component,
   createContext,
   createEffect,
+  createMemo,
   createResource,
   createSignal,
   For,
@@ -70,47 +71,30 @@ const updateUser = async (item: User) => {
   return res.json();
 };
 
-// const List: Component = () => {
 
-//   console.log("users", users.latest);
-//   return (
-//     <div>
-//       <ul>
-//         <For each={users.latest}>
-//           {(user, i) => (
-//             <li>
-//               {i} - {user.name}
-//             </li>
-//           )}
-//         </For>
-//       </ul>
-//     </div>
-//   );
-// };
 
-const UserDetailDetail: Component<{ item: string }> = ({ item }) => {
-  return <p>{item}</p>;
+const UserDetailDetail: Component<{ item: () => string }> = ({ item }) => {
+  return <p> User Detail Detail {item()}</p>;
 };
 
-const UserDetail: Component = () => {
-  const [_, { getView }] = useUser();
-
+const UserDetail: Component<{ fullName: () => string }> = ({ fullName }) => {
   return (
     <div>
       <br />
       <h1>User Detail</h1>
-      <p>{getView().fullName}</p>
-      <UserDetailDetail item={getView().fullName} />
+      <h4>{fullName()}</h4>
+      <UserDetailDetail item={fullName} />
     </div>
   );
 };
 
 const App: Component = () => {
-  //   const [id, _] = createSignal(1);
-  //   const [user, { mutate }] = createResource(id, getUser);
-  const [user, { mutate }] = useUser();
+  const [id, _] = createSignal(1);
+  const [user, { mutate }] = createResource(id, getUser);
   const [name, setName] = createSignal<string>("");
-  createEffect(async () => {});
+  const fullName = createMemo(() => {
+    return user.latest?.name + ' Surname';
+  });
   return (
     <div>
       <input
@@ -143,7 +127,7 @@ const App: Component = () => {
         <p>
           {user.latest?.id} - {user.latest?.name}
         </p>
-        <UserDetail />
+        <UserDetail fullName={fullName} />
       </Show>
     </div>
   );
