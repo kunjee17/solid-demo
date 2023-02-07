@@ -1,8 +1,96 @@
 {
   "users": [
     {
-      "name": "Boom",
-      "id": 1
+      "id" : 1,
+      "firstName": "tanner",
+      "lastName": "linsley",
+      "age": 24,
+      "visits": 100,
+      "status": "In Relationship",
+      "progress": 50,
+      "kids": [
+        {
+          "id" : 1,
+          "firstName": "tanner",
+          "lastName": "linsley",
+          "age": 24,
+          "visits": 100,
+          "status": "In Relationship",
+          "progress": 50,
+          "kids": [
+            {
+              "id" : 1,
+              "firstName": "tanner",
+              "lastName": "linsley",
+              "age": 24,
+              "visits": 100,
+              "status": "In Relationship",
+              "progress": 50,
+              "kids": []
+            },
+            {
+              "id" : 2,
+              "firstName": "tandy",
+              "lastName": "miller",
+              "age": 40,
+              "visits": 40,
+              "status": "Single",
+              "progress": 80,
+              "kids": []
+            },
+            {
+              "id" : 3,
+              "firstName": "joe",
+              "lastName": "dirte",
+              "age": 45,
+              "visits": 20,
+              "status": "Complicated",
+              "progress": 10,
+              "kids": []
+            }
+          ]
+        },
+        {
+          "id" : 2,
+          "firstName": "tandy",
+          "lastName": "miller",
+          "age": 40,
+          "visits": 40,
+          "status": "Single",
+          "progress": 80,
+          "kids": []
+        },
+        {
+          "id" : 3,
+          "firstName": "joe",
+          "lastName": "dirte",
+          "age": 45,
+          "visits": 20,
+          "status": "Complicated",
+          "progress": 10,
+          "kids": []
+        }
+      ]
+    },
+    {
+      "id" : 2,
+      "firstName": "tandy",
+      "lastName": "miller",
+      "age": 40,
+      "visits": 40,
+      "status": "Single",
+      "progress": 80,
+      "kids": []
+    },
+    {
+      "id" : 3,
+      "firstName": "joe",
+      "lastName": "dirte",
+      "age": 45,
+      "visits": 20,
+      "status": "Complicated",
+      "progress": 10,
+      "kids": []
     }
   ]
 }

@@ -24,6 +24,7 @@
   "dependencies": {
     "@solidjs/router": "^0.5.1",
     "@tailwindcss/typography": "^0.5.8",
+    "@tanstack/solid-table": "^8.7.9",
     "babel-plugin-solid-labels": "^0.13.0",
     "daisyui": "^2.45.0",
     "solid-js": "^1.5.1"

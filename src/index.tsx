@@ -2,15 +2,15 @@
 import { render } from "solid-js/web";
 
 import "./index.css";
-import App, { UserProvider } from "./App";
+import App from "./App";
 import { Router } from "@solidjs/router";
 
 render(
   () => (
     <Router>
-      <UserProvider>
+        <div class="container mx-auto pt-6">
         <App />
-      </UserProvider>
+        </div>
     </Router>
   ),
   document.getElementById("root") as HTMLElement
